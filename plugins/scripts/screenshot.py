@@ -18,5 +18,5 @@ class screenshot(BasePlugin):
     def process(self, fuzzresult):
 	(fd, filename) = tempfile.mkstemp()
 
-	subprocess.call(['cutycapt', '--url=%s' % pipes.quote(fuzzresult.url), '--out=%s.png' % filename])
-	self.add_result("Screnshot taken, output at %s.png" % filename)
+	subprocess.call(['cutycapt', '--url={0!s}'.format(pipes.quote(fuzzresult.url)), '--out={0!s}.png'.format(filename)])
+	self.add_result("Screnshot taken, output at {0!s}.png".format(filename))

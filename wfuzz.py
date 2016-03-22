@@ -27,7 +27,7 @@ try:
         try:
             kb = KeyPress()
         except ImportError, e:
-            raise FuzzException(FuzzException.FATAL, "Error importing necessary modules for interactive mode: %s" % str(e))
+            raise FuzzException(FuzzException.FATAL, "Error importing necessary modules for interactive mode: {0!s}".format(str(e)))
         else:
             mc = Controller(fz, kb)
             kb.start()
@@ -40,7 +40,7 @@ try:
 
     printer.footer(fz.genReq.stats)
 except FuzzException, e:
-    print "\nFatal exception: %s" % e.msg
+    print "\nFatal exception: {0!s}".format(e.msg)
     if fz: fz.cancel_job()
 except KeyboardInterrupt:
     print "\nFinishing pending requests..."

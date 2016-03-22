@@ -76,11 +76,11 @@ class Request:
 	    self.__finalurl = fu
 
 	def __str__(self):
-		str="[ URL: %s" % (self.completeUrl)
+		str="[ URL: {0!s}".format((self.completeUrl))
 		if self.method=="POST":
-			str+=" - POST: \"%s\"" % self.postdata
+			str+=" - POST: \"{0!s}\"".format(self.postdata)
 		if "Cookie" in self._headers:
-			str+=" - COOKIE: \"%s\"" % self._headers["Cookie"]
+			str+=" - COOKIE: \"{0!s}\"".format(self._headers["Cookie"])
 		str+=" ]"
 		return str
 
@@ -116,7 +116,7 @@ class Request:
 			    return self.__finalurl
 			return self.completeUrl
 		elif name=="urlWithoutPath":
-			return "%s://%s" % (self.schema,self._headers["Host"])
+			return "{0!s}://{1!s}".format(self.schema, self._headers["Host"])
 		elif name=="path":
 			return self.__path
 		elif name=="postdata":
@@ -230,7 +230,7 @@ class Request:
 	def getHeaders(self):
 		list=[]
 		for i,j in self._headers.items():
-			list+=["%s: %s" % (i,j)]
+			list+=["{0!s}: {1!s}".format(i, j)]
 		return list
 
 	def head(self):

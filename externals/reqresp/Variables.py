@@ -18,7 +18,7 @@ class Variable:
 		self.value+=val
 
 	def __str__(self):
-		return "[ %s : %s ]" % (self.name,self.value)
+		return "[ {0!s} : {1!s} ]".format(self.name, self.value)
 
 class VariablesSet:
 	def __init__(self):
@@ -46,7 +46,7 @@ class VariablesSet:
 				dicc.append(i)
 
 		if len(dicc)>1:
-			raise Exception, "Variable exists more than one time!!! :D" % (name)
+			raise Exception, "Variable exists more than one time!!! :D".format(*(name))
 
 		if not dicc:
 			var=Variable(name)
@@ -79,7 +79,7 @@ class VariablesSet:
 		pos=0
 		for i in self.variables:
 			pd+="--"+self.boundary+"\r\n"
-			pd+="%s\r\n\r\n%s\r\n" % ("\r\n".join(i.extraInfo),i.value)
+			pd+="{0!s}\r\n\r\n{1!s}\r\n".format("\r\n".join(i.extraInfo), i.value)
 		pd+="--"+self.boundary+"--\r\n"
 		return pd
 

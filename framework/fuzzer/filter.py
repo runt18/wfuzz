@@ -175,4 +175,4 @@ if __name__ == "__main__":
 
     f = FilterQ()
     for i in tests:
-	print "%s := %s" % (str(i), f.is_visible(res, i))
+	print "{0!s} := {1!s}".format(str(i), f.is_visible(res, i))

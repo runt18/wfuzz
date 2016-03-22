@@ -46,7 +46,7 @@ class FileLoader(IModuleLoader):
 	"""
 	Opens "filename", inspects it and calls the registrant
 	"""
-	self.__logger.debug('__load_py_from_file. START, file=%s' % (filename,))
+	self.__logger.debug('__load_py_from_file. START, file={0!s}'.format(filename))
 
 	dirname, filename = os.path.split(filename)
 	fn = os.path.splitext(filename)[0]
@@ -57,11 +57,11 @@ class FileLoader(IModuleLoader):
 	    exten_file, filename, description = imp.find_module(fn, [dirname])
 	    module = imp.load_module(fn, exten_file, filename, description)
 	except ImportError, msg:
-	    self.__logger.critical('__load_py_from_file. Exception, msg=%s' % (msg,))
+	    self.__logger.critical('__load_py_from_file. Exception, msg={0!s}'.format(msg))
 	    raise msg
 	except SyntaxError, msg:
 	    # incorrect python syntax in file
-	    self.__logger.critical('__load_py_from_file. Exception, msg=%s' % (msg,))
+	    self.__logger.critical('__load_py_from_file. Exception, msg={0!s}'.format(msg))
 	    raise msg
 	finally:
 	    if exten_file: exten_file.close()
@@ -69,13 +69,13 @@ class FileLoader(IModuleLoader):
 
 	for objname in dir(module):
 	    obj = getattr(module, objname)
-	    self.__logger.debug('__load_py_from_file. inspecting=%s' % (objname,))
+	    self.__logger.debug('__load_py_from_file. inspecting={0!s}'.format(objname))
 	    if inspect.isclass(obj):
 		if '__PLUGIN_MODULEMAN_MARK' in dir(obj):
 		    if self.module_registrant:
 			self.module_registrant.register(self._build_id(filename, objname), obj)
 
-	self.__logger.debug('__load_py_from_file. END, loaded file=%s' % (filename,))
+	self.__logger.debug('__load_py_from_file. END, loaded file={0!s}'.format(filename))
 
 class DirLoader(FileLoader):
     def __init__(self, **params):

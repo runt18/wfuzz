@@ -37,8 +37,8 @@ def search_bing(dork, key = None, raw = False):
     
     # some code taken from http://www.securitybydefault.com/2014/07/search2auditpy-deja-que-bing-haga-el.html?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+SecurityByDefault+%28Security+By+Default%29
     user_agent = 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; FDM; .NET CLR 2.0.50727; InfoPath.2; .NET CLR 1.1.4322)'
-    creds = (':%s' % key).encode('base64')[:-1]
-    auth = 'Basic %s' % creds
+    creds = (':{0!s}'.format(key)).encode('base64')[:-1]
+    auth = 'Basic {0!s}'.format(creds)
 
     # temporary solution, wf should have a process performing http requests. even plugins might need this.
     
@@ -49,7 +49,7 @@ def search_bing(dork, key = None, raw = False):
 	requestor = urllib2.build_opener()
 	result = requestor.open(request)
     except Exception, e:
-	raise FuzzException(FuzzException.FATAL, "Error when retrieving Bing API results: %s." % e.msg)
+	raise FuzzException(FuzzException.FATAL, "Error when retrieving Bing API results: {0!s}.".format(e.msg))
     
     results = json.loads(result.read())
     #test results = {u'd': {u'results': [{u'Web': [{u'Description': u'Diario de informaci\xf3n general de USA, noticias de \xfaltima hora de USA, el mundo, local, deportes, noticias curiosas y m\xe1s', u'Title': u'20minutos.com - El medio social - \xdaltima hora en USA y el ...', u'Url': u'http://www.20minutos.com/', u'__metadata': {u'type': u'WebResult', u'uri': u"https://api.datamarket.azure.com/Data.ashx/Bing/Search/ExpandableSearchResultSet(guid'b670a6b6-6ae7-4830-ad6f-83b525d6266d')/Web?$skip=0&$top=1"}, u'DisplayUrl': u'www.20minutos.com', u'ID': u'546995b5-587a-4618-984d-93bc5041e067'}, {u'Description': u'Informaci\xf3n, noticias y resultados de deportes: F\xfatbol, Baloncesto, NBA, Beisbol, F\xf3rmula 1, MotoGP, Tenis y m\xe1s en 20minutos.com', u'Title': u'Noticias deportivas - 20minutos.com', u'Url': u'http://www.20minutos.com/deportes/', u'__metadata': {u'type': u'WebResult', u'uri': u"https://api.datamarket.azure.com/Data.ashx/Bing/Search/ExpandableSearchResultSet(guid'b670a6b6-6ae7-4830-ad6f-83b525d6266d')/Web?$skip=1&$top=1"}, u'DisplayUrl': u'www.20minutos.com/deportes', u'ID': u'2ff2cd36-eece-4810-9b00-cba7d5ecfa47'}], u'VideoTotal': u'', u'RelatedSearch': [], u'Image': [], u'__metadata': {u'type': u'ExpandableSearchResult', u'uri': u"https://api.datamarket.azure.com/Data.ashx/Bing/Search/Composite?Sources='web'&Query='ip:193.148.34.26'&$skip=0&$top=1"}, u'ImageOffset': u'', u'AlterationOverrideQuery': u'', u'ImageTotal': u'', u'WebTotal': u'20', u'SpellingSuggestionsTotal': u'', u'WebOffset': u'0', u'Video': [], u'News': [], u'AlteredQuery': u'', u'SpellingSuggestions': [], u'VideoOffset': u'', u'NewsTotal': u'', u'ID': u'b670a6b6-6ae7-4830-ad6f-83b525d6266d', u'NewsOffset': u''}]}}
@@ -72,7 +72,7 @@ class BasePlugin():
 	except Exception, e:
 	    plres = PluginResult()
 	    plres.source = "$$exception$$"
-	    plres.issue = "Exception within plugin %s: %s" % (self.name, str(e))
+	    plres.issue = "Exception within plugin {0!s}: {1!s}".format(self.name, str(e))
 	    results_queue.put(plres)
 	finally:
 	    control_queue.get()

@@ -91,7 +91,7 @@ class uri_triple_hex:
 		strt += c
 		continue
 	    temp = hex(ord(c))[2:]
-	    strt += "%%25%%%02x%%%02x" % (ord(temp[:1]), ord(temp[1:]))
+	    strt += "%25%{0:02x}%{1:02x}".format(ord(temp[:1]), ord(temp[1:]))
 	return strt
 
 @moduleman_plugin("encode")
@@ -166,7 +166,7 @@ class second_nibble_hex:
 		strt += c
 		continue
 	    temp = hex(ord(c))[2:]
-	    strt += "%%%s%%%02x" % (str(temp[:1]), ord(temp[1:]))
+	    strt += "%{0!s}%{1:02x}".format(str(temp[:1]), ord(temp[1:]))
 	return strt
 
 @moduleman_plugin("encode")
@@ -185,7 +185,7 @@ class first_nibble_hex:
 		strt += c
 		continue
 	    temp = hex(ord(c))[2:]
-	    strt += "%%%%%02x%s" % (ord(temp[:1]), str(temp[1:]))
+	    strt += "%%{0:02x}{1!s}".format(ord(temp[:1]), str(temp[1:]))
 	return strt
 
 @moduleman_plugin("encode")
@@ -284,7 +284,7 @@ class html_hexadecimal:
     def encode(self,string):
 	new = ""
 	for x in string:
-	    val = "%02x" % ord(x)
+	    val = "{0:02x}".format(ord(x))
 	    new += "&#x"+str(val)+";"
 	return new
 
@@ -298,7 +298,7 @@ class utf8_binary:
     def encode(self,string):
 	new = ""
 	for x in string:
-	    val = "%02x" % ord(x)
+	    val = "{0:02x}".format(ord(x))
 	    new += "\\x"+str(val)
 	return new
 
@@ -312,7 +312,7 @@ class utf8:
     def encode(self,string):
 	new = ""
 	for x in string:
-	    val = "%02x" % ord(x)
+	    val = "{0:02x}".format(ord(x))
 	    if len(val)==2:
 		new += "\\u00"+str(val)
 	    else:
@@ -329,7 +329,7 @@ class uri_unicode:
     def encode(self, string):
 	new = ""
 	for x in string:
-	    val = "%02x" % ord(x)
+	    val = "{0:02x}".format(ord(x))
 	    if len(val) == 2:
 		new += "%u00" + str(val)
 	    else:

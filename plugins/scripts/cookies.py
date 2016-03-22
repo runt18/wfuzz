@@ -20,4 +20,4 @@ class cookies(BasePlugin):
 
 		if name != "" and not self.has_kbase("cookie") or name not in self.get_kbase("cookie"):
 		    self.add_kbase("cookie", name)
-		    self.add_result("Cookie first set - %s=%s" % (name, value))
+		    self.add_result("Cookie first set - {0!s}={1!s}".format(name, value))
