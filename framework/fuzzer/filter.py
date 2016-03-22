@@ -71,7 +71,7 @@ class FilterQ(FuzzQueue):
     def __compute_element(self, tokens):
 	element, operator, value = tokens[0]
 	
-	if value == 'BBB' and self.baseline == None:
+	if value == 'BBB' and self.baseline is None:
 	    raise FuzzException(FuzzException.FATAL, "FilterQ: specify a baseline value when using BBB")
 
 	if element == 'c' and value == 'XXX':
@@ -129,7 +129,7 @@ class FilterQ(FuzzQueue):
 	    except ParseException, e:
 		raise FuzzException(FuzzException.FATAL, "Incorrect filter expression. It should be composed of: c,l,w,h/and,or/=,<,>,!=,<=,>=")
 	else:
-	    if self.baseline == None and ('BBB' in self.hideparams['codes'] \
+	    if self.baseline is None and ('BBB' in self.hideparams['codes'] \
 		    or 'BBB' in self.hideparams['lines'] \
 		    or 'BBB' in self.hideparams['words'] \
 		    or 'BBB' in self.hideparams['chars']):

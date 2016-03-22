@@ -304,7 +304,7 @@ class Request:
 		c.setopt(pycurl.FOLLOWLOCATION, 1)
 
 	    proxy = req.getProxy()
-	    if proxy != None:
+	    if proxy is not None:
 		    c.setopt(pycurl.PROXY, proxy)
 		    if req.proxytype=="SOCKS5":
 			    c.setopt(pycurl.PROXYTYPE,pycurl.PROXYTYPE_SOCKS5)
