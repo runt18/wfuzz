@@ -22,7 +22,7 @@ class sitemap(DiscoveryPlugin):
 	try:
 	    dom = xml.dom.minidom.parseString(fuzzresult.history.fr_content())
 	except:
-	    raise FuzzException(FuzzException.FATAL, 'Error while parsing %s.' % fuzzresult.url)
+	    raise FuzzException(FuzzException.FATAL, 'Error while parsing {0!s}.'.format(fuzzresult.url))
 
 	urlList = dom.getElementsByTagName("loc")
 	for url in urlList:

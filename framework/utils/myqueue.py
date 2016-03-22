@@ -87,7 +87,7 @@ class FuzzQueue(MyPriorityQueue, Thread):
 	if isinstance(e, FuzzException):
 	    self.send_first(e)
 	else:
-	    msg = "%s\n\n%s" %(str(e), traceback.format_exc())
+	    msg = "{0!s}\n\n{1!s}".format(str(e), traceback.format_exc())
 	    self.send_first(FuzzException(FuzzException.FATAL, msg))
 
     def run(self):

@@ -22,4 +22,4 @@ class grep(BasePlugin):
 
     def process(self, fuzzresult):
 	for r in self.regex.findall(fuzzresult.history.fr_content()):
-	    self.add_result("Pattern match %s" % r)
+	    self.add_result("Pattern match {0!s}".format(r))

@@ -34,7 +34,7 @@ class CLParser:
 	print usage
 
     def show_plugins_help(self, registrant, cols=3, category="$all$"):
-	print "\nAvailable %s:\n" % registrant
+	print "\nAvailable {0!s}:\n".format(registrant)
 	table_print(map(lambda x: x[cols:], Facade().proxy(registrant).get_plugins_ext(category)))
 	sys.exit(0)
 
@@ -71,7 +71,7 @@ class CLParser:
 	except getopt.GetoptError, qw:
 	    self.show_brief_usage()
 	    #self.show_usage()
-	    raise FuzzException(FuzzException.FATAL, "%s." % str(qw))
+	    raise FuzzException(FuzzException.FATAL, "{0!s}.".format(str(qw)))
 
     def _parse_help_opt(self, optsd):
 	if "--version" in optsd:

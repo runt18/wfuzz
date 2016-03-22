@@ -38,7 +38,7 @@ class Controller:
 		print "\n=============== Paused =================="
 		stats = self.fuzzer.stats()
 		for k,v in stats.items():
-		    print "%s: %s" % (k, v)
+		    print "{0!s}: {1!s}".format(k, v)
 		print "\n========================================="
 	else:
 	    self.fuzzer.resume_job()
@@ -47,8 +47,7 @@ class Controller:
 	if self._debug:
 	    fzstats = self.fuzzer.stats()
 
-	    print "\nTotal items %d, Backfed items %d, HTTP reqs: %d, Fuzzed items: %d, Pending: %d (Wait HTTP: %d, Wait pre HTTP: %d, Wait Workers: %d, Wait processed: %d). (MEM: %d)" % \
-		(fzstats['total'], \
+	    print "\nTotal items {0:d}, Backfed items {1:d}, HTTP reqs: {2:d}, Fuzzed items: {3:d}, Pending: {4:d} (Wait HTTP: {5:d}, Wait pre HTTP: {6:d}, Wait Workers: {7:d}, Wait processed: {8:d}). (MEM: {9:d})".format(fzstats['total'], \
 		fzstats['backfed'], \
 		fzstats['http_Processed'], \
 		fzstats['Processed'], \
@@ -56,27 +55,27 @@ class Controller:
 		fzstats['http_Pending'], \
 		fzstats['http_queue'], \
 		fzstats['plugins_queue'], \
-		fzstats['results_queue'],
+		fzstats['results_queue']
 		)
 	else:
 	    pending = self.fuzzer.genReq.stats.total_req - self.fuzzer.genReq.stats.processed
 	    summary = self.fuzzer.genReq.stats
 	    summary.mark_end()
-	    print "\nTotal requests: %s\r" % str(summary.total_req)
-	    print "Pending requests: %s\r" % str(pending)
+	    print "\nTotal requests: {0!s}\r".format(str(summary.total_req))
+	    print "Pending requests: {0!s}\r".format(str(pending))
 
 	    if summary.backfeed > 0:
-		print "Processed Requests: %s (%d + %d)\r" % (str(summary.processed)[:8], (summary.processed - summary.backfeed), summary.backfeed)
+		print "Processed Requests: {0!s} ({1:d} + {2:d})\r".format(str(summary.processed)[:8], (summary.processed - summary.backfeed), summary.backfeed)
 	    else:
-		print "Processed Requests: %s\r" % (str(summary.processed)[:8])
-	    print "Filtered Requests: %s\r" % (str(summary.filtered)[:8])
+		print "Processed Requests: {0!s}\r".format((str(summary.processed)[:8]))
+	    print "Filtered Requests: {0!s}\r".format((str(summary.filtered)[:8]))
 	    req_sec = summary.processed/summary.totaltime if summary.totaltime > 0 else 0
-	    print "Total time: %s\r" % str(summary.totaltime)[:8]
+	    print "Total time: {0!s}\r".format(str(summary.totaltime)[:8])
 	    if req_sec > 0:
-		print "Requests/sec.: %s\r" % str(req_sec)[:8]
+		print "Requests/sec.: {0!s}\r".format(str(req_sec)[:8])
 		eta = pending/req_sec
 		if eta > 60:
-		    print "ET left min.: %s\r\n" % str(eta/60)[:8]
+		    print "ET left min.: {0!s}\r\n".format(str(eta/60)[:8])
 		else:
-		    print "ET left sec.: %s\r\n" % str(eta)[:8]
+		    print "ET left sec.: {0!s}\r\n".format(str(eta)[:8])
 

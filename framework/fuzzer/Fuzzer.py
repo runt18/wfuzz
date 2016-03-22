@@ -185,7 +185,7 @@ class Fuzzer:
 	if self.plugins_queue:
 	    j = 0
 	    for i in self.plugins_queue.queue_out:
-		dic = dict(dic.items() + {"plugins_queue #%d" % j: i.qsize()}.items())
+		dic = dict(dic.items() + {"plugins_queue #{0:d}".format(j): i.qsize()}.items())
 		j += 1
 
 	return dict(self.http_queue.job_stats().items() + self.genReq.stats.get_stats().items() + dic.items())

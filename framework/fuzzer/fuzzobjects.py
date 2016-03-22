@@ -144,7 +144,7 @@ class FuzzRequest(BaseFuzzRequest, Request):
     def _set_proxies(self, l):
 	if l:
 	    prox, ptype = l
-	    self.setProxy("%s" % prox, ptype if ptype else "HTML")
+	    self.setProxy("{0!s}".format(prox), ptype if ptype else "HTML")
 	self._proxy = l
 	
     def _get_proxies(self):
@@ -205,7 +205,7 @@ class FuzzRequest(BaseFuzzRequest, Request):
 	    elif rawReq.count(fuzz_word):
 		rawReq = rawReq.replace(fuzz_word, payload_content)
 	    else:
-		raise FuzzException(FuzzException.FATAL, "No %s word!" % fuzz_word)
+		raise FuzzException(FuzzException.FATAL, "No {0!s} word!".format(fuzz_word))
 
 	newreq.parseRequest(rawReq, schema)
 	newreq.setUrl(rawUrl)

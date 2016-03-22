@@ -63,7 +63,7 @@ class JobMan(FuzzQueue):
 			    continue
 			th = threading.Thread(target = pl.run, kwargs={"fuzzresult": res, "control_queue": self.__walking_threads, "results_queue": plugins_res_queue})
 		    except Exception, e:
-			raise FuzzException(FuzzException.FATAL, "Error initialising plugin %s: %s " % (plugin_class.name, str(e)))
+			raise FuzzException(FuzzException.FATAL, "Error initialising plugin {0!s}: {1!s} ".format(plugin_class.name, str(e)))
 		    self.__walking_threads.put(th)
 		    th.start()
 
@@ -115,7 +115,7 @@ class ProcessorQ(FuzzQueue):
 	    plres = PluginResult()
 	    plres.source = "Backfeed"
 	    fuzz_res.plugins_res.append(plres)
-	    plres.issue = "Plugin %s enqueued %d more requests (rlevel=%d)" % (plugin_name, enq_item, fuzz_res.rlevel)
+	    plres.issue = "Plugin {0!s} enqueued {1:d} more requests (rlevel={2:d})".format(plugin_name, enq_item, fuzz_res.rlevel)
 
 	# check if recursion is needed
 	if self.max_rlevel >= fuzz_res.rlevel and fuzz_res.is_path():
@@ -128,7 +128,7 @@ class ProcessorQ(FuzzQueue):
 	# Little hack to output that the result generates a new recursion seed
 	plres = PluginResult()
 	plres.source = "Recursion"
-	plres.issue = "Enqueued response for recursion (level=%d)" % (res.rlevel)
+	plres.issue = "Enqueued response for recursion (level={0:d})".format((res.rlevel))
 	res.plugins_res.append(plres)
 
 	# send new seed

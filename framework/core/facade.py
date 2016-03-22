@@ -48,7 +48,7 @@ class Facade:
 	    self.__iterators = BRegistrant(FileLoader(**{"filename": "iterations.py", "base_path": "./plugins" }))
 	    self.__payloads = BRegistrant(FileLoader(**{"filename": "payloads.py", "base_path": "./plugins" }))
 	except Exception, e:
-	    raise FuzzException(FuzzException.FATAL, "Error loading plugins: %s" % str(e))
+	    raise FuzzException(FuzzException.FATAL, "Error loading plugins: {0!s}".format(str(e)))
 
 	self.sett = Settings()
 
@@ -64,7 +64,7 @@ class Facade:
 	elif which == 'printers':
 	    return self.__printers
 	else:
-	    raise FuzzException(FuzzException.FATAL, "Non-existent proxy %s" % which)
+	    raise FuzzException(FuzzException.FATAL, "Non-existent proxy {0!s}".format(which))
 
     def get_printer(self, name):
 	try:
@@ -94,4 +94,4 @@ class Facade:
 	try:
 	    return self.__plugins.get_plugins(filterstr)
 	except Exception, e:
-	    raise FuzzException(FuzzException.FATAL, "Error selecting scripts: %s" % str(e))
+	    raise FuzzException(FuzzException.FATAL, "Error selecting scripts: {0!s}".format(str(e)))

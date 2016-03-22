@@ -80,9 +80,9 @@ class HttpQueue(FuzzQueue):
     def _set_proxy(self, c, freq):
 	ip, port, ptype = self._proxies.next()
 
-	freq.wf_proxy = (("%s:%s" % (ip, port)), ptype)
+	freq.wf_proxy = (("{0!s}:{1!s}".format(ip, port)), ptype)
 
-	c.setopt(pycurl.PROXY, "%s:%s" % (ip, port))
+	c.setopt(pycurl.PROXY, "{0!s}:{1!s}".format(ip, port))
 	if ptype == "SOCKS5":
 	    c.setopt(pycurl.PROXYTYPE, pycurl.PROXYTYPE_SOCKS5)
 	elif ptype == "SOCKS4":
@@ -161,7 +161,7 @@ class HttpQueue(FuzzQueue):
 		elif errno == 5:
 		    err_number = ReqRespException.RESOLVE_PROXY
 
-		e = ReqRespException(err_number, "Pycurl error %d: %s" % (errno, errmsg))
+		e = ReqRespException(err_number, "Pycurl error {0:d}: {1!s}".format(errno, errmsg))
 		self.send(FuzzResult.from_fuzzReq(req, exception=e))
 
 		if not self.options.get("scanmode"):

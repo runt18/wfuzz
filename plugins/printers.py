@@ -104,7 +104,7 @@ class html:
     def header(self, summary):
 	url = summary.url
 
-	sys.stderr.write("<html><head></head><body bgcolor=#000000 text=#FFFFFF><h1>Fuzzing %s</h1>\r\n<table border=\"1\">\r\n<tr><td>#request</td><td>Code</td><td>#lines</td><td>#words</td><td>Url</td></tr>\r\n" % (url) )
+	sys.stderr.write("<html><head></head><body bgcolor=#000000 text=#FFFFFF><h1>Fuzzing {0!s}</h1>\r\n<table border=\"1\">\r\n<tr><td>#request</td><td>Code</td><td>#lines</td><td>#words</td><td>Url</td></tr>\r\n".format((url)) )
 
     def result(self, fuzz_result):
 	htmlc="<font>"
@@ -119,11 +119,11 @@ class html:
 	if fuzz_result.history.fr_method().lower() == "post":
 	    inputs=""
 	    for n, v in fuzz_result.history.fr_parameters()['post'].items():
-		inputs+="<input type=\"hidden\" name=\"%s\" value=\"%s\">" % (n, v)
+		inputs+="<input type=\"hidden\" name=\"{0!s}\" value=\"{1!s}\">".format(n, v)
 
-	    sys.stderr.write ("\r\n<tr><td>%05d</td>\r\n<td>%s%d</font></td>\r\n<td>%4dL</td>\r\n<td>%5dW</td>\r\n<td><table><tr><td>%s</td><td><form method=\"post\" action=\"%s\">%s<input type=submit name=b value=\"send POST\"></form></td></tr></table></td>\r\n</tr>\r\n" %(fuzz_result.nres, htmlc, fuzz_result.code, fuzz_result.lines, fuzz_result.words, fuzz_result.description, fuzz_result.url, inputs))
+	    sys.stderr.write ("\r\n<tr><td>{0:05d}</td>\r\n<td>{1!s}{2:d}</font></td>\r\n<td>{3:4d}L</td>\r\n<td>{4:5d}W</td>\r\n<td><table><tr><td>{5!s}</td><td><form method=\"post\" action=\"{6!s}\">{7!s}<input type=submit name=b value=\"send POST\"></form></td></tr></table></td>\r\n</tr>\r\n".format(fuzz_result.nres, htmlc, fuzz_result.code, fuzz_result.lines, fuzz_result.words, fuzz_result.description, fuzz_result.url, inputs))
 	else:
-	    sys.stderr.write("\r\n<tr><td>%05d</td><td>%s%d</font></td><td>%4dL</td><td>%5dW</td><td><a href=%s>%s</a></td></tr>\r\n" %(fuzz_result.nres, htmlc, fuzz_result.code, fuzz_result.lines, fuzz_result.words, fuzz_result.url, fuzz_result.url))
+	    sys.stderr.write("\r\n<tr><td>{0:05d}</td><td>{1!s}{2:d}</font></td><td>{3:4d}L</td><td>{4:5d}W</td><td><a href={5!s}>{6!s}</a></td></tr>\r\n".format(fuzz_result.nres, htmlc, fuzz_result.code, fuzz_result.lines, fuzz_result.words, fuzz_result.url, fuzz_result.url))
 
     def footer(self, summary):
 	sys.stderr.write("</table></body></html><h5>Wfuzz by EdgeSecurity<h5>\r\n")
@@ -207,24 +207,24 @@ class default:
 
 	txt_color = ("", 8) if not res.is_baseline or not self.colour else (term_colors.fgCyan, 8)
 
-	self._write("%05d:  C=" % (res.nres), line_suffix, txt_color)
+	self._write("{0:05d}:  C=".format((res.nres)), line_suffix, txt_color)
 	if res.exception:
 	    self._write("XXX", line_suffix, self._get_code_color(res.code) if self.colour else ("",8))
 	else:
-	    self._write("%03d" % (res.code), line_suffix, self._get_code_color(res.code) if self.colour else ("",8)) 
-	self._write("   %4d L\t   %5d W\t  %5d Ch\t  \"%s\"%s" % (res.lines, res.words, res.chars, res.description, line_suffix), line_suffix, txt_color)
+	    self._write("{0:03d}".format((res.code)), line_suffix, self._get_code_color(res.code) if self.colour else ("",8)) 
+	self._write("   {0:4d} L\t   {1:5d} W\t  {2:5d} Ch\t  \"{3!s}\"{4!s}".format(res.lines, res.words, res.chars, res.description, line_suffix), line_suffix, txt_color)
 
 	if line_suffix != "":
 	    for i in res.plugins_res:
-		print "  |_ %s\r" % i.issue
+		print "  |_ {0!s}\r".format(i.issue)
 	
 	sys.stdout.flush()
 
     def header(self, summary):
 	print exec_banner
-	print "Target: %s\r" % summary.url
+	print "Target: {0!s}\r".format(summary.url)
 	#print "Payload type: " + payloadtype + "\n"
-	print "Total requests: %d\r\n" % summary.total_req
+	print "Total requests: {0:d}\r\n".format(summary.total_req)
 	print "==================================================================\r"
 	print "ID	Response   Lines      Word         Chars          Request    \r"
 	print "==================================================================\r\n"
@@ -239,14 +239,14 @@ class default:
 	self._erase()
 	sys.stdout.write("\r\n")
 
-	print "Total time: %s\r" % str(summary.totaltime)[:8]
+	print "Total time: {0!s}\r".format(str(summary.totaltime)[:8])
 
 	if summary.backfeed > 0:
-	    print "Processed Requests: %s (%d + %d)\r" % (str(summary.processed)[:8], (summary.processed - summary.backfeed), summary.backfeed)
+	    print "Processed Requests: {0!s} ({1:d} + {2:d})\r".format(str(summary.processed)[:8], (summary.processed - summary.backfeed), summary.backfeed)
 	else:
-	    print "Processed Requests: %s\r" % (str(summary.processed)[:8])
-	print "Filtered Requests: %s\r" % (str(summary.filtered)[:8])
-	print "Requests/sec.: %s\r\n" % str(summary.processed/summary.totaltime if summary.totaltime > 0 else 0)[:8]
+	    print "Processed Requests: {0!s}\r".format((str(summary.processed)[:8]))
+	print "Filtered Requests: {0!s}\r".format((str(summary.filtered)[:8]))
+	print "Requests/sec.: {0!s}\r\n".format(str(summary.processed/summary.totaltime if summary.totaltime > 0 else 0)[:8])
 
 @moduleman_plugin("header", "footer", "noresult", "result")
 class verbose(default):
@@ -260,9 +260,9 @@ class verbose(default):
 
     def header(self, summary):
 	print exec_banner
-	print "Target: %s\r" % summary.url
+	print "Target: {0!s}\r".format(summary.url)
 	#print "Payload type: " + payloadtype + "\n"
-	print "Total requests: %d\r\n" % summary.total_req
+	print "Total requests: {0:d}\r\n".format(summary.total_req)
 	print
 
 	print "==============================================================================================================================================\r"
@@ -274,14 +274,14 @@ class verbose(default):
 
 	txt_color = ("", 8) if not res.is_baseline or not self.colour else (term_colors.fgCyan, 8)
 
-	self._write("%05d:  " % (res.nres), line_suffix, txt_color) 
-	self._write("%.3fs   C=" % (res.timer), line_suffix, txt_color) 
+	self._write("{0:05d}:  ".format((res.nres)), line_suffix, txt_color) 
+	self._write("{0:.3f}s   C=".format((res.timer)), line_suffix, txt_color) 
 
 	location = ""
 	if 'Location' in res.history.fr_headers()['response']:
 	   location = res.history.fr_headers()['response']['Location']
 	elif res.history.fr_url() != res.history.fr_redirect_url():
-	    location = "(*) %s" % res.history.fr_url()
+	    location = "(*) {0!s}".format(res.history.fr_url())
 
 	server = ""
 	if 'Server' in res.history.fr_headers()['response']:
@@ -290,13 +290,13 @@ class verbose(default):
 	if res.exception:
 	    self._write("XXX", line_suffix, self._get_code_color(res.code) if self.colour else ("",8))
 	else:
-	    self._write("%03d" % (res.code), line_suffix, self._get_code_color(res.code) if self.colour else ("",8)) 
+	    self._write("{0:03d}".format((res.code)), line_suffix, self._get_code_color(res.code) if self.colour else ("",8)) 
 
-	self._write("   %4d L\t   %5d W\t  %5d Ch  %20.20s  %51.51s   \"%s\"%s" % (res.lines, res.words, res.chars, server[:17], location[:48], res.description, line_suffix), line_suffix, txt_color)
+	self._write("   {0:4d} L\t   {1:5d} W\t  {2:5d} Ch  {3:20.20!s}  {4:51.51!s}   \"{5!s}\"{6!s}".format(res.lines, res.words, res.chars, server[:17], location[:48], res.description, line_suffix), line_suffix, txt_color)
 
 	if line_suffix != "":
 	    for i in res.plugins_res:
-		print "  |_ %s\r" % i.issue
+		print "  |_ {0!s}\r".format(i.issue)
 	
 	sys.stdout.flush()
 

@@ -139,8 +139,8 @@ if __name__ == "__main__":
 
     res = t()
 
-    print "cat = %s, name = %s\n\n" % (res.category, res.name)
+    print "cat = {0!s}, name = {1!s}\n\n".format(res.category, res.name)
     for i in tests:
 	f = Filter()
-	print "%s := %s" % (str(i), f.is_visible(res, i))
+	print "{0!s} := {1!s}".format(str(i), f.is_visible(res, i))
 

@@ -45,7 +45,7 @@ class svn_extractor(DiscoveryPlugin):
 	file_list, dir_list, author_list = self.readsvn(fuzzresult.history.fr_content())
 
 	if author_list:
-	    self.add_result("SVN authors: %s" % ', '.join(author_list))
+	    self.add_result("SVN authors: {0!s}".format(', '.join(author_list)))
 
 	for f in file_list:
 	    u = urljoin(base_url.replace("/.svn/", "/"), f)
@@ -96,13 +96,13 @@ class wcdb_extractor(DiscoveryPlugin):
 	author_list, list_items = self.readwc(fuzzresult.history.fr_content())
 
 	if author_list:
-	    self.add_result("SVN authors: %s" % ', '.join(author_list))
+	    self.add_result("SVN authors: {0!s}".format(', '.join(author_list)))
 
 	if list_items:
 	    for f, pristine in list_items:
 		u = urljoin(fuzzresult.url.replace("/.svn/wc.db", "/"), f)
 		if not self.blacklisted_extension(u):
-		    self.add_result("SVN %s source code in %s" % (f, pristine))
+		    self.add_result("SVN {0!s} source code in {1!s}".format(f, pristine))
 		    self.queue_url(u)
 
 

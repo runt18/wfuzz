@@ -3,24 +3,24 @@ from framework.core.facade import version
 
 
 exec_banner = '''********************************************************\r
-* Wfuzz %s - The Web Bruteforcer                      *\r
-********************************************************\r\n''' % version
+* Wfuzz {0!s} - The Web Bruteforcer                      *\r
+********************************************************\r\n'''.format(version)
 
 help_banner = '''********************************************************
-* Wfuzz %s - The Web Bruteforcer                      *
+* Wfuzz {0!s} - The Web Bruteforcer                      *
 *                                                      *
 * Version up to 1.4c coded by:                         *
 * Christian Martorella (cmartorella@edge-security.com) *
 * Carlos del ojo (deepbit@gmail.com)                   *
 *                                                      *
-* Version 1.4d to %s coded by:                        *
+* Version 1.4d to {1!s} coded by:                        *
 * Xavier Mendez (xmendez@edge-security.com)            *
-********************************************************\r\n''' % (version, version)
+********************************************************\r\n'''.format(version, version)
 
-brief_usage ='''Usage: %s [options] -z payload,params <url>\r\n
+brief_usage ='''Usage: {0!s} [options] -z payload,params <url>\r\n
 Type wfuzz.py -h for further information.
-''' % (sys.argv[0])
-usage ='''Usage: %s [options] -z payload,params <url>\r\n
+'''.format((sys.argv[0]))
+usage ='''Usage: {0!s} [options] -z payload,params <url>\r\n
 Options:
 -h/--help		    : This help
 --version		    : Wfuzz version details
@@ -67,13 +67,13 @@ Options:
 			      It should be composed of: c,l,w,h/and,or/=,<,>,!=,<=,>=
 
 Keyword: FUZZ, ..., FUZnZ  wherever you put these keywords wfuzz will replace them with the values of the specified payload. 
-Baseline: FUZZ{baseline_value} FUZZ will be replaced by baseline_value. It will be the first request performed and could be used as a base for filtering.
+Baseline: FUZZ{{baseline_value}} FUZZ will be replaced by baseline_value. It will be the first request performed and could be used as a base for filtering.
 
 Examples: - wfuzz.py -c -z file,users.txt -z file,pass.txt --sc 200 http://www.site.com/log.asp?user=FUZZ&pass=FUZ2Z
-	  - wfuzz.py -c -z range,1-10 --hc=BBB http://www.site.com/FUZZ{something not there}
+	  - wfuzz.py -c -z range,1-10 --hc=BBB http://www.site.com/FUZZ{{something not there}}
 	  - wfuzz.py --script=robots -z list,robots.txt http://www.webscantest.com/FUZZ
 
-	   More examples in the README.''' % (sys.argv[0])
+	   More examples in the README.'''.format((sys.argv[0]))
 
 class term_colors:
     reset = "\x1b[0m"
