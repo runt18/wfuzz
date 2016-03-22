@@ -153,7 +153,7 @@ class Fuzzer:
 	    self.results_queue.task_done()
 	    raise item
 	# We are done if a None arrives
-	elif item == None:
+	elif item is None:
 	    self.results_queue.task_done()
 	    self.genReq.stats.mark_end()
 	    return None

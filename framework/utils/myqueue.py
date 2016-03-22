@@ -97,13 +97,13 @@ class FuzzQueue(MyPriorityQueue, Thread):
 	    prio, item = self.get(True, 365 * 24 * 60 * 60)
 
 	    try:
-		if item == None and not cancelling:
+		if item is None and not cancelling:
 		    if self.wait_qout:
 			self.send_last(None)
 			self.qout_join()
 		    self.task_done()
 		    break
-		elif item == None and cancelling:
+		elif item is None and cancelling:
 		    self.send_last(None)
 		    self.task_done()
 		    break
